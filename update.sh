@@ -127,7 +127,7 @@ html = f'''<!DOCTYPE html>
     .tide-level {{ text-align: right; color: var(--muted); font-size: 0.95rem; font-weight: 600; }}
     .footer {{ margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; line-height: 1.55; text-align: center; }}
     .actions {{ display: flex; gap: 10px; margin-top: 14px; }}
-    .button {{ flex: 1; text-align: center; text-decoration: none; color: white; background: linear-gradient(135deg, #0b3c5d, #1a6c8f); padding: 12px 14px; border-radius: 14px; font-weight: 700; box-shadow: 0 10px 25px rgba(11,60,93,0.18); }}
+    .button {{ flex: 1; text-align: center; text-decoration: none; color: white; background: linear-gradient(135deg, #0b3c5d, #1a6c8f); padding: 12px 14px; border-radius: 14px; font-weight: 700; box-shadow: 0 10px 25px rgba(11,60,93,0.18); border: 0; cursor: pointer; font: inherit; }}
     .button.secondary {{ background: rgba(255,255,255,0.7); color: var(--text); border: 1px solid rgba(11,60,93,0.10); box-shadow: none; }}
     @keyframes rise {{ from {{ opacity: 0; transform: translateY(8px); }} to {{ opacity: 1; transform: translateY(0); }} }}
     @media (max-width: 420px) {{
@@ -157,7 +157,7 @@ html = f'''<!DOCTYPE html>
       </div>
       <div class="actions">
         <a class="button secondary" href="https://www.tidepeek.com/europe/denmark/central-jutland/norddjurs-kommune/grena-havn/tomorrow">Kilde</a>
-        <a class="button" href="./index.html">Åbn side</a>
+        <button class="button" type="button" onclick="window.location.reload()">Opdater</button>
       </div>
       <div class="footer">
         Kilde: tidepeek.com<br>
