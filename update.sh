@@ -25,11 +25,12 @@ if not rows or not kinds or len(rows) != len(kinds):
 entries = []
 for (time_str, level), kind in zip(rows, kinds):
     dk_kind = 'Højvande' if kind.lower() == 'high tide' else 'Lavvande'
-    level_num = float(level)
-    if abs(level_num) < 0.05:
-        level_str = '0.0'
+    level_ft = float(level)
+    level_m = level_ft * 0.3048
+    if abs(level_m) < 0.05:
+        level_str = '0,0'
     else:
-        level_str = f'{level_num:.1f}'
+        level_str = f'{level_m:.1f}'.replace('.', ',')
     dt = datetime.strptime(time_str.upper(), '%I:%M %p')
     entries.append((dt.strftime('%H:%M'), level_str, dk_kind))
 
@@ -51,7 +52,7 @@ for idx, (time24, level, kind) in enumerate(entries):
             <span class="pill {pill_class}">{emoji} {kind}</span>
           </div>
           <div class="tide-time">{time24}</div>
-          <div class="tide-level">{level} ft</div>
+          <div class="tide-level">{level} m</div>
         </div>''')
 
 html = f'''<!DOCTYPE html>
@@ -149,19 +150,19 @@ html = f'''<!DOCTYPE html>
       <div class="hero">
         <div class="hero-label">I morgen</div>
         <div class="hero-date">{date_str}</div>
-        <div class="hero-sub">Alle registrerede høj- og lavvander · 24-timers ur</div>
+        <div class="hero-sub">Alle registrerede høj- og lavvander · 24-timers format</div>
       </div>
       <div class="list">
 {chr(10).join(rows_html)}
       </div>
       <div class="actions">
         <a class="button secondary" href="https://www.tidepeek.com/europe/denmark/central-jutland/norddjurs-kommune/grena-havn/tomorrow">Kilde</a>
-        <a class="button" href="./index.html">Del side</a>
+        <a class="button" href="./index.html">Åbn side</a>
       </div>
       <div class="footer">
         Kilde: tidepeek.com<br>
         Tider vises i 24-timers format.<br>
-        Siden opdateres automatisk dagligt via GitHub Actions.
+        Siden opdateres automatisk hver dag via GitHub Actions.
       </div>
     </div>
   </div>
