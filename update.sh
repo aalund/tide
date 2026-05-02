@@ -36,12 +36,19 @@ for (time_str, level), kind in zip(rows, kinds):
 
 entries.sort(key=lambda x: x[0])
 
-tomorrow = datetime.now(UTC).date() + timedelta(days=1)
+target_date = datetime.now(UTC).date() + timedelta(days=1)
 updated = datetime.now(UTC)
+today = updated.date()
 weekday_map = ['mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag', 'søndag']
 month_map = ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december']
-date_str = f"{weekday_map[tomorrow.weekday()]} {tomorrow.day}. {month_map[tomorrow.month-1]} {tomorrow.year}"
+date_str = f"{weekday_map[target_date.weekday()]} {target_date.day}. {month_map[target_date.month-1]} {target_date.year}"
 updated_str = updated.strftime('%d-%m-%Y %H:%M UTC')
+if target_date == today:
+    day_label = 'I dag'
+elif target_date == today + timedelta(days=1):
+    day_label = 'I morgen'
+else:
+    day_label = 'Valgt dag'
 
 rows_html = []
 for idx, (time24, level, kind) in enumerate(entries):
@@ -148,7 +155,7 @@ html = f'''<!DOCTYPE html>
       <h1>Tidevand</h1>
       <div class="location">Grenaa Havn</div>
       <div class="hero">
-        <div class="hero-label">I morgen</div>
+        <div class="hero-label">{day_label}</div>
         <div class="hero-date">{date_str}</div>
         <div class="hero-sub">Alle registrerede høj- og lavvander · 24-timers format</div>
       </div>
